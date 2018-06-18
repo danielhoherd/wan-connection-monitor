@@ -10,3 +10,18 @@ $ cd wan-connection-monitor
 $ make run
 $ make logs
 ```
+
+# View included help
+
+```
+$ make help
+bounce          Rebuild, rm and run the Dockerfile
+build           Build the Dockerfile in PWD
+help            Print Makefile help
+install-hooks   Install git hooks
+logs            View the last 30 minutes of log entries
+rm              Delete deployed container
+run             Build and run the Dockerfile in pwd
+stop            Delete deployed container
+test            Test that the container functions
+```
