@@ -16,7 +16,7 @@ $ make logs
 ```
 $ make help
 bounce          Rebuild, rm and run the Dockerfile
-build           Build the Dockerfile in PWD
+build           Build the Dockerfile found in PWD
 help            Print Makefile help
 install-hooks   Install git hooks
 logs            View the last 30 minutes of log entries

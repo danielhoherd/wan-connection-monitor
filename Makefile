@@ -19,7 +19,7 @@ RESTART      ?= always
 all: build
 
 .PHONY: build
-build: ## Build the Dockerfile in PWD
+build: ## Build the Dockerfile found in PWD
 	docker build --no-cache=${NO_CACHE} \
 		-t ${IMAGE_NAME}:latest \
 		-t ${IMAGE_NAME}:${GIT_BRANCH}-${GIT_SHA_SHORT} \
