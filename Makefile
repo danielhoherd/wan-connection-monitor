@@ -52,5 +52,9 @@ test: ## Test that the container functions
 rm: ## Delete deployed container
 	-docker rm --force $(NAME)
 
+.PHONY: logs
+logs: ## View the last 30 minutes of log entries
+	docker logs --since 30m $(NAME)
+
 .PHONY: bounce
 bounce: build rm run ## Rebuild, rm and run the Dockerfile
