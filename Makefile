@@ -48,8 +48,12 @@ run: build ## Build and run the Dockerfile in pwd
 test: ## Test that the container functions
 	docker run --rm -it $(IMAGE_NAME) fping localhost
 
+.PHONY: stop
+stop: ## Delete deployed container
+	-docker stop $(NAME)
+
 .PHONY: rm
-rm: ## Delete deployed container
+rm: stop ## Delete deployed container
 	-docker rm --force $(NAME)
 
 .PHONY: logs
