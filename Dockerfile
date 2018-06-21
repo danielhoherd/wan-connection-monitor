@@ -7,4 +7,4 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 WORKDIR /data
 
-CMD while true ; do printf "%s %s\n" "$(date "+%F %T%z")" "$(fping -t 1000 -q 4.2.2.1 && echo alive || echo FAILURE)" ; sleep 5 ; done | tee -a wan_connection.log
+CMD while true ; do printf "%s %s\n" "$(date "+%F %T%z")" "$(fping -t 1000 -q 4.2.2.1 && echo alive || echo FAILURE)" ; sleep 5 ; done | tee -a "wan_connection-$(date +%F).log"
