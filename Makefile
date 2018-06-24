@@ -44,6 +44,18 @@ run: build ## Build and run the Dockerfile in pwd
 		--mount type=bind,src="$(PWD)",dst="/data" \
 		$(IMAGE_NAME)
 
+.PHONY: debug
+debug: build ## Build and debug the Dockerfile in pwd
+	docker run \
+		--interactive \
+		--tty \
+		--rm \
+		--name=$(NAME)-debug \
+		--net=host \
+		--mount type=bind,src="/etc/localtime",dst="/etc/localtime",readonly \
+		--mount type=bind,src="$(PWD)",dst="/data" \
+		$(IMAGE_NAME) bash
+
 .PHONY: test
 test: ## Test that the container functions
 	docker run --rm -it $(IMAGE_NAME) fping localhost
@@ -52,9 +64,12 @@ test: ## Test that the container functions
 stop: ## Delete deployed container
 	-docker stop $(NAME)
 
+.PHONY: delete
+delete: rm
 .PHONY: rm
 rm: stop ## Delete deployed container
 	-docker rm --force $(NAME)
+	-docker rm --force $(NAME)-debug
 
 .PHONY: logs
 logs: ## View the last 30 minutes of log entries
