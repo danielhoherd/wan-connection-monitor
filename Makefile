@@ -7,7 +7,7 @@ help: ## Print Makefile help
 
 SUDO            = $(shell which sudo)
 IMAGE_NAME     ?= wan-connection-logger
-CONTAINER_NAME ?= ${IMAGE_NAME}
+CONTAINER_NAME ?= "${IMAGE_NAME}"
 NO_CACHE       ?= false
 ORG_PREFIX     ?= danielhoherd
 GIT_ORIGIN      = $(shell git config --get remote.origin.url)
@@ -22,7 +22,7 @@ all: build
 
 .PHONY: build
 build: ## Build the Dockerfile found in PWD
-	docker build --no-cache=${NO_CACHE} \
+	docker build --no-cache="${NO_CACHE}" \
 		-t "${IMAGE_NAME}:latest" \
 		-t "${IMAGE_NAME}:${GIT_BRANCH}-${GIT_SHA_SHORT}" \
 		-t "${IMAGE_NAME}:${GIT_BRANCH}-${GIT_SHA_LONG}" \
@@ -43,12 +43,12 @@ install-hooks: ## Install git hooks
 run: build ## Build and run the Dockerfile in pwd
 	docker run \
 		-d \
-		--restart=${RESTART} \
-		--name=${CONTAINER_NAME} \
+		--restart="${RESTART}" \
+		--name="${CONTAINER_NAME}" \
 		--net=host \
 		--mount type=bind,src="/etc/localtime",dst="/etc/localtime",readonly \
 		--mount type=bind,src="${PWD}",dst="/data" \
-		${IMAGE_NAME}
+		"${IMAGE_NAME}"
 
 .PHONY: debug
 debug: build ## Build and debug the Dockerfile in pwd
@@ -56,30 +56,34 @@ debug: build ## Build and debug the Dockerfile in pwd
 		--interactive \
 		--tty \
 		--rm \
-		--name=${NAME}-debug \
+		--name="${NAME}-debug" \
 		--net=host \
 		--mount type=bind,src="/etc/localtime",dst="/etc/localtime",readonly \
 		--mount type=bind,src="${PWD}",dst="/data" \
-		${IMAGE_NAME} bash
+		"${IMAGE_NAME}" bash
 
 .PHONY: test
 test: ## Test that the container functions
-	docker run --rm -it ${IMAGE_NAME} fping localhost
+	docker run --rm -it "${IMAGE_NAME}" fping localhost
 
 .PHONY: stop
 stop: ## Delete deployed container
-	-docker stop ${CONTAINER_NAME}
+	-docker stop "${CONTAINER_NAME}"
 
 .PHONY: delete
 delete: rm
 .PHONY: rm
 rm: stop ## Delete deployed container
-	-docker rm --force ${CONTAINER_NAME}
-	-docker rm --force ${CONTAINER_NAME}-debug
+	-docker rm --force "${CONTAINER_NAME}"
+	-docker rm --force "${CONTAINER_NAME}-debug"
 
 .PHONY: logs
 logs: ## View the last 30 minutes of log entries
-	docker logs --since 30m ${CONTAINER_NAME}
+	docker logs --since 30m "${CONTAINER_NAME}"
+
+.PHONY: trim-logs
+trim-logs: ## Trim 'alive' statements from logs so only failures remain
+	sed -i '/alive/d' *.log
 
 .PHONY: bounce
 bounce: build rm run ## Rebuild, rm and run the Dockerfile
