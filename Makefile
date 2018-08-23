@@ -83,7 +83,9 @@ logs: ## View the last 30 minutes of log entries
 
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
+	@du -ch *.log | grep total
 	sed -i '/alive/d' *.log
+	@du -ch *.log | grep total
 
 .PHONY: bounce
 bounce: build rm run ## Rebuild, rm and run the Dockerfile
