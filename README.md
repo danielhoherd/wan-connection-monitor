@@ -5,10 +5,10 @@ Log WAN connection status, because Comcast sucks and we need a record of how muc
 # Usage
 
 ```
-$ git@github.com:danielhoherd/wan-connection-monitor.git
-$ cd wan-connection-monitor
-$ make run
-$ make logs
+git clone git@github.com:danielhoherd/wan-connection-monitor.git
+cd wan-connection-monitor
+make run
+make logs
 ```
 
 # View included help
