@@ -72,8 +72,8 @@ stop: ## Delete deployed container
 delete: rm
 .PHONY: rm
 rm: stop ## Delete deployed container
-	-docker rm --force "${CONTAINER_NAME}"
-	-docker rm --force "${CONTAINER_NAME}-debug"
+	docker rm --force "${CONTAINER_NAME}" || true
+	docker rm --force "${CONTAINER_NAME}-debug" || true
 
 .PHONY: logs
 logs: ## View the last 30 minutes of log entries
