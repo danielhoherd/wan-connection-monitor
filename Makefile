@@ -38,7 +38,7 @@ install-hooks: ## Install git hooks
 	pre-commit install -f --install-hooks
 
 .PHONY: run
-run: build ## Build and run the Dockerfile in pwd
+run: log build ## Build and run the Dockerfile in pwd
 	docker run \
 		-d \
 		--restart="${RESTART}" \
@@ -49,7 +49,7 @@ run: build ## Build and run the Dockerfile in pwd
 		"${IMAGE_NAME}"
 
 .PHONY: debug
-debug: build ## Build and debug the Dockerfile in pwd
+debug: log build ## Build and debug the Dockerfile in pwd
 	docker run \
 		--interactive \
 		--tty \
@@ -59,6 +59,9 @@ debug: build ## Build and debug the Dockerfile in pwd
 		--mount type=bind,src="/etc/localtime",dst="/etc/localtime",readonly \
 		--mount type=bind,src="${PWD}",dst="/data" \
 		"${IMAGE_NAME}" bash
+
+log: ## Create log dir
+	mkdir log
 
 .PHONY: test
 test: ## Test that the container functions
@@ -75,16 +78,16 @@ rm: stop ## Delete deployed container
 	docker rm --force "${CONTAINER_NAME}" || true
 	docker rm --force "${CONTAINER_NAME}-debug" || true
 
-.PHONY: logs
-logs: ## View the last 30 minutes of log entries
+.PHONY: show-logs
+show-logs: ## Show the last 30 minutes of log entries
 	docker logs --since 30m "${CONTAINER_NAME}"
 
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
-	@du -ch *.log | grep total
-	sed -i '/\(FAILURE\|Start\)/!d' *.log
-	find . -type f -iname '*.log' -empty -delete
-	@du -ch *.log | grep total
+	@du -ch log | grep total
+	sed -i '/\(FAILURE\|Start\)/!d' log/*.log
+	find log/ -type f -iname '*.log' -empty -delete
+	@du -ch log | grep total
 
 .PHONY: bounce
 bounce: build rm run ## Rebuild, rm and run the Dockerfile
