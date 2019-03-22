@@ -11,6 +11,8 @@ while true ; do
   if [ "${last_result}" != "${this_result}" ] ; then
     [[ ! -z "${count}" ]] && flap_message=" (last_result: ${last_result} ${count})"
     count=0
+  else
+    unset flap_message
   fi
   last_result="${this_result}"
   (( count+=1 ))
