@@ -82,7 +82,7 @@ logs: ## View the last 30 minutes of log entries
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
 	@du -ch *.log | grep total
-	sed -i '/FAILURE/!d' *.log
+	sed -i '/\(FAILURE\|Start\)/!d' *.log
 	find . -type f -iname '*.log' -empty -delete
 	@du -ch *.log | grep total
 
