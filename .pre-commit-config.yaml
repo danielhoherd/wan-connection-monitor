@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.1.0
+    rev: v2.2.1
     hooks:
       - id: check-byte-order-marker
       - id: check-case-conflict
@@ -11,7 +11,6 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
-      - id: fix-encoding-pragma
       - id: flake8
       - id: mixed-line-ending
         args: ['--fix=lf' ]
@@ -37,9 +36,10 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/danielhoherd/pre-commit-hooks
-    rev: 1a5d4f6c75ca3eddb36979f0cb6cbc87d0990e74
+    rev: 0b84f996d085b772bcdb94279ebcddc827a2fd57
     hooks:
       - id: CVE-2017-18342
       - id: remove-unicode-non-breaking-spaces
       - id: remove-unicode-zero-width-non-breaking-spaces
       - id: remove-en-dashes
+      - id: sort-gitignore
