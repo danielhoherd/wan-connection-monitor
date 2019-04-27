@@ -85,7 +85,7 @@ show-logs: ## Show the last 30 minutes of log entries
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
 	@du -ch log | grep total
-	sed -i '/\(FAILURE\|Start\)/!d' log/*.log
+	sed -i '/last_result/!d' log/*.log
 	find log/ -type f -iname '*.log' -empty -delete
 	@du -ch log | grep total
 
