@@ -5,7 +5,7 @@ log_message() {
 }
 
 get_public_ip_address() {
-  timeout 5 fping -t 1000 -q 4.2.2.1 >/dev/null 2>&1 && dig +short myip.opendns.com @resolver1.opendns.com 2>/dev/null || echo FAILURE
+  timeout 5 fping -t 1000 -q 4.2.2.1 >/dev/null 2>&1 && dig +short myip.opendns.com @resolver1.opendns.com 2>/dev/null | grep -v 'connection timed out' || echo FAILURE
 }
 export -f get_public_ip_address
 
