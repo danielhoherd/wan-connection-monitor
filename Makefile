@@ -2,7 +2,7 @@
 
 .PHONY: help
 help: ## Print Makefile help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' ${MAKEFILE_LIST} | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' ${MAKEFILE_LIST} | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-21s\033[0m %s\n", $$1, $$2}'
 
 
 SUDO            = $(shell which sudo)
@@ -81,6 +81,10 @@ rm: stop ## Delete deployed container
 .PHONY: show-logs
 show-logs: ## Show the last 30 minutes of log entries
 	docker logs --since 30m "${CONTAINER_NAME}"
+
+.PHONY: show-recent-failures
+show-recent-failures: ## Show recent failures
+	find log -type f | sort | tail | xargs grep "FAILURE 1 (last"
 
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
