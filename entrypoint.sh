@@ -14,7 +14,7 @@ log_message "Starting $(get_public_ip_address)"
 while sleep 10 ; do
   this_result="$(get_public_ip_address)"
   if [ "${last_result}" != "${this_result}" ] ; then
-    [[ ! -z "${count}" ]] && flap_message=" (last_result: ${last_result} ${count})"
+    [[ -n "${count}" ]] && flap_message=" (last_result: ${last_result} ${count})"
     count=0
   else
     unset flap_message
