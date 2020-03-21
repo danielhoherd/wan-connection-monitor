@@ -23,8 +23,8 @@ all: build
 .PHONY: build
 build: ## Build the Dockerfile found in PWD
 	docker build --no-cache="${NO_CACHE}" \
-		-t "${IMAGE_NAME}:latest" \
-		-t "${IMAGE_NAME}:${GIT_BRANCH}-${GIT_SHA_SHORT}" \
+		--tag "${IMAGE_NAME}:latest" \
+		--tag "${IMAGE_NAME}:${GIT_BRANCH}-${GIT_SHA_SHORT}" \
 		--label "${ORG_PREFIX}.repo.origin=${GIT_ORIGIN}" \
 		--label "${ORG_PREFIX}.repo.branch=${GIT_BRANCH}" \
 		--label "${ORG_PREFIX}.repo.commit=${GIT_SHA_LONG}" \
@@ -40,10 +40,9 @@ install-hooks: ## Install git hooks
 .PHONY: run
 run: log build ## Build and run the Dockerfile in pwd
 	docker run \
-		-d \
+		--detach \
 		--restart="${RESTART}" \
 		--name="${CONTAINER_NAME}" \
-		--net=host \
 		--mount type=bind,src="/etc/localtime",dst="/etc/localtime",readonly \
 		--mount type=bind,src="${PWD}",dst="/data" \
 		"${IMAGE_NAME}"
