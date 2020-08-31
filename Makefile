@@ -83,7 +83,7 @@ show-logs: ## Show the last 30 minutes of log entries
 
 .PHONY: show-recent-failures
 show-recent-failures: ## Show recent failures
-	find log -type f | sort | tail | xargs grep "FAILURE 1 (last"
+	find log -type f | sort | tail -n 20 | xargs grep "FAILURE 1 (last"
 
 .PHONY: trim-logs
 trim-logs: ## Trim 'alive' statements from logs so only failures remain
