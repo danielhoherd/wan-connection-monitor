@@ -1,50 +1,41 @@
 ---
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v2.3.1"
     hooks:
-      - id: check-byte-order-marker
+      - id: prettier
+        args: ["--print-width=135"]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
       - id: check-case-conflict
       - id: check-json
       - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
       - id: check-xml
       - id: check-yaml
-      - id: debug-statements
-      - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
-        args: ['--fix=lf' ]
-      - id: requirements-txt-fixer
+        args: ["--fix=lf"]
       - id: sort-simple-yaml
       - id: trailing-whitespace
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.3
-    hooks:
-      - id: flake8
   - repo: https://github.com/detailyang/pre-commit-shell
     rev: 1.0.5
     hooks:
       - id: shell-lint
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
-    hooks:
-      - id: black
-        args: ['-l', '132']
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.9
+    rev: v1.1.10
     hooks:
       - id: remove-tabs
         exclude_types: [makefile, binary]
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.24.2
+    rev: v1.26.1
     hooks:
       - id: yamllint
   - repo: https://github.com/danielhoherd/pre-commit-hooks
-    rev: ac0637d7febb88d1b01f876e47bb5224a9a63eae
+    rev: 2f2f8150b077398bc79a3df1d0c9bcf339990031
     hooks:
-      - id: CVE-2017-18342
       - id: remove-unicode-zero-width-space
       - id: remove-unicode-non-breaking-spaces
       - id: remove-unicode-zero-width-non-breaking-spaces
       - id: remove-en-dashes
-      - id: sort-gitignore
