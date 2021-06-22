@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM ubuntu:focal
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
