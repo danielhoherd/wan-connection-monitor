@@ -7,7 +7,7 @@ help: ## Print Makefile help
 
 SUDO            = $(shell which sudo)
 IMAGE_NAME     ?= wan-connection-logger
-CONTAINER_NAME ?= "${IMAGE_NAME}"
+CONTAINER_NAME ?= ${IMAGE_NAME}
 NO_CACHE       ?= false
 ORG_PREFIX     ?= danielhoherd
 GIT_ORIGIN      = $(shell git config --get remote.origin.url)
