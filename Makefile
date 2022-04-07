@@ -66,6 +66,10 @@ log: ## Create log dir
 test: ## Test that the container functions
 	docker run --rm -it "${IMAGE_NAME}" fping localhost
 
+.PHONY: pull
+pull: ## Pull the latest docker image
+	-awk '$$1 == "FROM" {print $$2}' Dockerfile | xargs -n1 docker pull
+
 .PHONY: stop
 stop: ## Delete deployed container
 	-docker stop "${CONTAINER_NAME}"
@@ -93,4 +97,4 @@ trim-logs: ## Trim 'alive' statements from logs so only failures remain
 	@du -ch log | grep total
 
 .PHONY: bounce
-bounce: build rm run ## Rebuild, rm and run the Dockerfile
+bounce: pull build rm run ## Rebuild, rm and run the Dockerfile
