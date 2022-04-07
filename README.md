@@ -2,7 +2,7 @@
 
 Log WAN connection status, because Comcast sucks and we need a record of how much.
 
-# Usage
+## Usage
 
 ```
 git clone git@github.com:danielhoherd/wan-connection-monitor.git
@@ -11,7 +11,7 @@ make run
 make logs
 ```
 
-# View included help
+## View included help
 
 ```
 $ make help
@@ -29,7 +29,7 @@ test            Test that the container functions
 trim-logs       Trim 'alive' statements from logs so only failures remain
 ```
 
-# Example logs output
+## Example logs output
 
 ```
 2019-04-26 13:28:58-0700 73.70.9.223 18
@@ -39,3 +39,8 @@ trim-logs       Trim 'alive' statements from logs so only failures remain
 2019-04-26 13:29:53-0700 73.70.9.223 1 (last_result: FAILURE 2)
 2019-04-26 13:30:03-0700 73.70.9.223 2
 ```
+
+## TODO
+
+- Rewrite completely using something other than bash OR find some existing tool to do this
+- Separate out reporting from logging
